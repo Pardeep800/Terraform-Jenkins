@@ -1,10 +1,10 @@
 pipeline {
     parameters {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-        string(name: 'tag', defaultValue: '', description: 'Tag for the resources')
-        string(name: 'amiId', defaultValue: '', description: 'AMI ID for the instance')
-        string(name: 'cidr', defaultValue: '', description: 'CIDR block for the VPC')
-        string(name: 'subnet', defaultValue: '', description: 'Subnet for the resources')
+        string(name: 'tag', defaultValue: 'Terraform', description: 'Tag for the resources')
+        string(name: 'amiId', defaultValue: 'ami-06b21ccaeff8cd686', description: 'AMI ID for the instance')
+        string(name: 'cidr', defaultValue: '172.31.32.0/20', description: 'CIDR block for the VPC')
+        string(name: 'subnet', defaultValue: 'subnet-0285c1a6c843aa9e0', description: 'Subnet for the resources')
     }
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
