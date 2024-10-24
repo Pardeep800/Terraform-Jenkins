@@ -5,6 +5,7 @@ pipeline {
         string(name: 'amiId', defaultValue: 'ami-06b21ccaeff8cd686', description: 'AMI ID for the instance')
         string(name: 'cidr', defaultValue: '172.31.32.0/20', description: 'CIDR block for the VPC')
         string(name: 'subnet', defaultValue: 'subnet-0285c1a6c843aa9e0', description: 'Subnet for the resources')
+        string(name: 'vpc', defaultValue: 'vpc-0f9bd6a752d53cff6', description: 'vpc id for use')
     }
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
@@ -26,7 +27,7 @@ pipeline {
         stage('Plan') {
             steps {
                 sh 'pwd; cd terraform/; terraform init'
-                sh "pwd; cd terraform/; terraform plan -out tfplan -var 'tag=${params.tag}' -var 'ami_id=${params.amiId}' -var 'cidr=${params.cidr}' -var 'subnet=${params.subnet}'"
+                sh "pwd; cd terraform/; terraform plan -out tfplan -var 'tag=${params.tag}' -var 'ami_id=${params.amiId}' -var 'cidr=${params.cidr}' -var 'subnet=${params.subnet}' -var 'vpc=${params.vpc}"
                 sh 'pwd; cd terraform/; terraform show -no-color tfplan > tfplan.txt'
             }
         }
