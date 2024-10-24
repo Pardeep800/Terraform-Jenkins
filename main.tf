@@ -33,8 +33,8 @@ resource "aws_vpc" "main" {
 
 # Create a Subnet
 resource "aws_subnet" "main" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.subnet
+  vpc_id            = 0f9b21ccaeff8cd686
+  cidr_block        = 172.31.32.0/20
   availability_zone = "us-east-1a"  # Change as needed
 
   tags = {
@@ -44,9 +44,9 @@ resource "aws_subnet" "main" {
 
 # Create an EC2 Instance
 resource "aws_instance" "app" {
-  ami           = var.ami_id
+  ami           = ami-06b21ccaeff8cd686
   instance_type = "t2.micro"  # Change as needed
-  subnet_id     = aws_subnet.main.id
+  subnet_id     = 0285c1a6c843aa9e0
 
   tags = {
     Name = var.tag
