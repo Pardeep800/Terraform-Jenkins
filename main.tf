@@ -26,6 +26,12 @@ variable "subnet" {
   default     = "subnet-0285c1a6c843aa9e0"
 }
 
+variable "vpc" {
+  description = "vpc for it use"
+  type        = string
+  default     = "vpc-0f9bd6a752d53cff6"
+}
+
 # Create a VPC
 resource "aws_vpc" "main" {
   cidr_block = var.cidr
