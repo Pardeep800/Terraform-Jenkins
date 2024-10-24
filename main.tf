@@ -5,7 +5,7 @@ provider "aws" {
 variable "tag" {
   description = "Tag for the resources"
   type        = string
-  default     = "Terraform"  # Set a default value or update this as needed
+  default     = "terraform"  # Set a default value or update this as needed
 }
 
 variable "ami_id" {
@@ -27,7 +27,7 @@ variable "subnet" {
 }
 
 variable "vpc" {
-  description = "vpc for it use"
+  description = "VPC ID for the resources"
   type        = string
   default     = "vpc-0f9bd6a752d53cff6"
 }
@@ -43,9 +43,9 @@ resource "aws_vpc" "main" {
 
 # Create a Subnet
 resource "aws_subnet" "main" {
-  vpc_id            = aws_vpc.main.id  # Reference the ID of the VPC created above
-  cidr_block        = var.cidr          # Use the same CIDR block
-  availability_zone = "us-east-1a"     # Change as needed
+  vpc_id            = aws_vpc.main.id            # Reference the ID of the VPC created above
+  cidr_block        = var.cidr                     # Use the same CIDR block
+  availability_zone = "us-east-1a"                # Change as needed
 
   tags = {
     Name = "${var.tag}-subnet"
@@ -54,11 +54,24 @@ resource "aws_subnet" "main" {
 
 # Create an EC2 Instance
 resource "aws_instance" "app" {
-  ami           = var.ami_id        # Use the AMI variable
-  instance_type = "t2.micro"        # Change as needed
-  subnet_id     = aws_subnet.main.id # Reference the ID of the subnet created above
+  ami           = var.ami_id                     # Use the AMI variable
+  instance_type = "t2.micro"                     # Change as needed
+  subnet_id     = aws_subnet.main.id             # Reference the ID of the subnet created above
 
   tags = {
     Name = var.tag
   }
+}
+
+# Output the VPC ID and Subnet ID
+output "vpc_id" {
+  value = aws_vpc.main.id
+}
+
+output "subnet_id" {
+  value = aws_subnet.main.id
+}
+
+output "instance_id" {
+  value = aws_instance.app.id
 }
