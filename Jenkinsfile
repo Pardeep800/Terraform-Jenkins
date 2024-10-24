@@ -27,7 +27,7 @@ pipeline {
         stage('Plan') {
             steps {
                 sh 'pwd; cd terraform/; terraform init'
-                sh "pwd; cd terraform/; terraform plan -out tfplan -var 'tag=${params.tag}' -var 'ami_id=${params.amiId}' -var 'cidr=${params.cidr}' -var 'subnet=${params.subnet}' -var 'vpc=${params.vpc}"
+                sh "pwd; cd terraform/; terraform plan -out tfplan -var 'tag=${params.tag}' -var 'ami_id=${params.amiId}' -var 'cidr=${params.cidr}' -var 'subnet=${params.subnet}' -var 'vpc=${params.vpc}'"
                 sh 'pwd; cd terraform/; terraform show -no-color tfplan > tfplan.txt'
             }
         }
